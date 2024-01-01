@@ -1,11 +1,45 @@
 # frozen_string_literal: true
 
+require 'minitest'
+
 module Minitest
   module OpenAPI
-    class Hooks
-      def self.hello
-        puts 'Hello from MiniTest::Hooks!'
+    module RunPatch
+      def run(*args)
+        result = super
+        if ENV['OPENAPI'] && self.class.openapi?
+          # This will run before specs
+        end
+        result
+      end
+    end
+
+    module ActivateOpenApiClassMethods
+      def self.prepended(base)
+        base.extend(ClassMethods)
+      end
+
+      module ClassMethods
+        def openapi?
+          @openapi
+        end
+
+        def openapi!
+          @openapi = true
+        end
       end
     end
   end
 end
+
+Minitest::Test.prepend Minitest::OpenAPI::ActivateOpenApiClassMethods
+
+if ENV['OPENAPI']
+  Minitest::Test.prepend Minitest::OpenAPI::RunPatch
+  Minitest.after_run do
+    puts "============================="
+    puts "Building Docs 🎉"
+    puts "============================="
+  end
+end
+
