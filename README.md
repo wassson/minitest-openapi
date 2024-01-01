@@ -1,5 +1,6 @@
 # minitest-openai
-Generate OpenAPI schema from MiniTest request specs.
+Generate OpenAPI schema from MiniTest request specs. `minitest-openapi` 
+is inspired by [rspec-openapi](https://github.com/exoego/rspec-openapi).
 
 ## Getting started
 
