@@ -23,7 +23,20 @@ Minitest::OpenAPI.path = 'docs/openapi.yaml'
 ```
 
 ## Run 
-Run with: 
+Running: 
 ```
 DOC=1 bundle exec rails t
+```
+
+will generate a `yaml` file like:
+
+```yaml
+# docs/openapi.yaml
+openapi: 3.0.3
+info: 
+  title: minitest-openapi
+paths: 
+  '/':
+    get:
+      summary: index
 ```
