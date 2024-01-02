@@ -7,7 +7,7 @@ module Minitest
     module RunPatch
       def run(*args)
         result = super
-        if ENV['OPENAPI'] && self.class.openapi?
+        if ENV['DOC'] && self.class.openapi?
           # This will run before specs
         end
         result
@@ -34,7 +34,7 @@ end
 
 Minitest::Test.prepend Minitest::OpenAPI::ActivateOpenApiClassMethods
 
-if ENV['OPENAPI']
+if ENV['DOC']
   Minitest::Test.prepend Minitest::OpenAPI::RunPatch
   Minitest.after_run do
     puts "============================="

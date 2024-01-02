@@ -3,7 +3,7 @@
 require 'minitest/openapi/hooks'
 
 module Minitest
-  class Config
+  class Document
     @path = 'docs/openapi.yaml'
 
     class << self
