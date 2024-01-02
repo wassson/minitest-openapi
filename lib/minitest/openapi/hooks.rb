@@ -2,35 +2,34 @@
 
 require 'minitest'
 
-module Minitest
-  module OpenAPI
-    module RunPatch
-      def run(*args)
-        result = super
-        if ENV['DOC'] && self.class.openapi?
-          # This will run before specs
-        end
-        result
+module Minitest::OpenAPI
+  module RunPatch
+    def run(*args)
+      result = super
+      if ENV['DOC'] && self.class.openapi?
+        # This will run before specs
       end
+      result
+    end
+  end
+
+  module ActivateOpenApiClassMethods
+    def self.prepended(base)
+      base.extend(ClassMethods)
     end
 
-    module ActivateOpenApiClassMethods
-      def self.prepended(base)
-        base.extend(ClassMethods)
+    module ClassMethods
+      def openapi?
+        @openapi
       end
 
-      module ClassMethods
-        def openapi?
-          @openapi
-        end
-
-        def openapi!
-          @openapi = true
-        end
+      def openapi!
+        @openapi = true
       end
     end
   end
 end
+
 
 Minitest::Test.prepend Minitest::OpenAPI::ActivateOpenApiClassMethods
 
