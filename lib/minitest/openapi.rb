@@ -5,8 +5,10 @@ require 'minitest/openapi/schema'
 
 module Minitest::OpenAPI
   @path = 'docs/openapi.yaml'
+  @version = '3.0.3'
 
   class << self
-    attr_accessor :path
+    attr_accessor :path,
+                  :version
   end
 end

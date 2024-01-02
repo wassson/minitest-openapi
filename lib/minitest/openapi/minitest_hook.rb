@@ -7,7 +7,6 @@ module Minitest::OpenAPI
     def run(*args)
       test = super
       if ENV['DOC'] && self.class.document?
-        # Generate doc/openapi.yaml
         Minitest::OpenAPI::Schema.build
       end
       test
@@ -41,4 +40,3 @@ if ENV['DOC']
     puts "============================="
   end
 end
-
