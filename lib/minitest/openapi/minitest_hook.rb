@@ -27,6 +27,15 @@ module DocumentClassMethods
     def document!
       @document = true
     end
+
+    # TODO: webhooks
+    # def webhook?
+    #   @webhook
+    # end
+    #
+    # def webhook!
+    #   @webhook = true
+    # end
   end
 end
 
