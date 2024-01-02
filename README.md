@@ -24,7 +24,7 @@ Minitest::OpenAPI.path = 'docs/openapi.yaml'
 
 ## Run 
 Running: 
-```
+```bash
 DOC=1 bundle exec rails t
 ```
 
