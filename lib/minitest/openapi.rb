@@ -2,15 +2,19 @@
 
 require 'minitest/openapi/minitest_hook'
 require 'minitest/openapi/parse_request'
-require 'minitest/openapi/path_builder'
+require 'minitest/openapi/endpoint_builder'
 require 'minitest/openapi/schema'
 
 module Minitest::OpenAPI
   @path = 'docs/openapi.yaml'
+  @paths = Hash.new { |h, k| h[k] = [] }
   @version = '3.0.3'
+  @webhooks = Hash.new { |h, k| h[k] = [] }
 
   class << self
     attr_accessor :path,
-                  :version
+                  :paths,
+                  :version,
+                  :webhooks
   end
 end

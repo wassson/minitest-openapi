@@ -3,14 +3,19 @@
 require 'minitest'
 
 module Minitest::OpenAPI
+  FileContext = Struct.new(:path)
+
   module RunPatch
     def run(*args)
-      test = super
+      result = super
       if ENV['DOC'] && self.class.document?
-        path = Minitest::OpenAPI::PathBuilder.call(self, test)
-        pp path
+        file_path = result.source_location.first
+        file_ctx = FileContext.new(file_path)
+        export_file_path = Minitest::OpenAPI.path.yield_self { |p| p.is_a?(Proc) ? p.call(file_ctx) : p }
+        endpoint_data = Minitest::OpenAPI::EndpointBuilder.call(self, file_ctx)
+        Minitest::OpenAPI.paths[export_file_path] << endpoint_data
       end
-      test
+      result
     end
   end
 end

@@ -5,8 +5,8 @@ module Minitest::OpenAPI
 
   module Schema
     def self.build
-      file_path = Minitest::OpenAPI.path
-      raise InvalidFileFormat unless file_path.downcase.end_with?('.json')
+      file_path = Minitest::OpenAPI.file_path
+      raise InvalidFileFormat unless json?(file_path)
 
       Dir.mkdir('docs') unless File.exist?('docs')
       File.open(file_path, 'w') do |file|
@@ -20,8 +20,8 @@ module Minitest::OpenAPI
       JSON.parse({
         openapi: Minitest::OpenAPI.version,
         info: {
-          title: 'minitest-openapi',
-          version: '0.0.1'
+          title: 'minitest-openapi', # TODO: this should be the name of the app installed on
+          version: '0.0.1' # TODO
         },
         paths: {},
         webhooks: {}
@@ -30,5 +30,11 @@ module Minitest::OpenAPI
 
     # TODO: Handle path from test
     # rails routes | grep #{root, etc.} | awk '{print $3}'
+  end
+
+  private
+
+  def json?(file)
+    File.extname(file) == '.json'
   end
 end
