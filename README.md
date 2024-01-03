@@ -9,11 +9,24 @@ gem 'minitest-openapi', '~> 0.0.1'
 
 ## Getting started
 To use `minitest-openapi`, add `require 'minitest/openapi'` to 
-the top of your request spec, and `document!` at the top of 
+the top of your request spec, and the `document!` method at the top of 
 your class declaration.
 
 The `document!` method can take in one of a few 'descriptors': `:path`, `:webhook`,
 or `:component`. The `:path` descriptor is set by default if nothing is passed in.
+
+```rb
+require 'minitest/openapi'
+
+class WebhookControllerTest < ActionDispatch::IntegrationTest
+  document! :webhook
+
+  test "POST /webhook" do
+    post webhook_path
+    assert_response :success
+  end
+end
+```
 
 ## Configuration
 To configure how your code will interact with `minitest-openapi`, 
