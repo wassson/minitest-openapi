@@ -12,6 +12,9 @@ To use `minitest-openapi`, add `require 'minitest/openapi'` to
 the top of your request spec, and `document!` at the top of 
 your class declaration.
 
+The `document!` method can take in one of a few 'descriptors': `:path`, `:webhook`,
+or `:component`. The `:path` descriptor is set by default if nothing is passed in.
+
 ## Configuration
 To configure how your code will interact with `minitest-openapi`, 
 create a new file in `config/initializers` (ex: `config/initializers/openapi.rb`).
@@ -49,6 +52,13 @@ if on exists.
     "/github": {
       "post": {
         "description": "Example #2"
+      }
+    }
+  },
+  "components": {
+    "schema": {
+      "User": {
+        "required": ["id"]
       }
     }
   }
