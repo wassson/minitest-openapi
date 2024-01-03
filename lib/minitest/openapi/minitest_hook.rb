@@ -54,5 +54,8 @@ if ENV['DOC']
     puts '============================='
     puts 'Building Docs 🎉'
     puts '============================='
+    puts "\n"
+
+    pp Minitest::OpenAPI.paths
   end
 end

@@ -9,10 +9,12 @@ module Minitest
         request, response = Minitest::OpenAPI::ParseRequest.call(context)
         return if request.nil?
 
-        {
-          http_method: request.method,
-          status: response.status
-        }
+        endpoint = {}
+        filtered_path = request.filtered_path || 'unknown'
+        request_activity = { http_method: request.method, status: response.status }
+
+        endpoint[filtered_path] = request_activity
+        endpoint
       end
     end
   end
