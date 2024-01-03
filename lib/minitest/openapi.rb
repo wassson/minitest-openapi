@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'minitest/openapi/minitest_hook'
+require 'minitest/openapi/parse_request'
+require 'minitest/openapi/path_builder'
 require 'minitest/openapi/schema'
 
 module Minitest::OpenAPI

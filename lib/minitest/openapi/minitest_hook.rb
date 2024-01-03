@@ -7,7 +7,8 @@ module Minitest::OpenAPI
     def run(*args)
       test = super
       if ENV['DOC'] && self.class.document?
-        Minitest::OpenAPI::Schema.build
+        path = Minitest::OpenAPI::PathBuilder.call(self, test)
+        pp path
       end
       test
     end
@@ -43,6 +44,7 @@ Minitest::Test.prepend DocumentClassMethods
 
 if ENV['DOC']
   Minitest::Test.prepend Minitest::OpenAPI::RunPatch
+
   Minitest.after_run do
     puts "============================="
     puts "Building Docs 🎉"

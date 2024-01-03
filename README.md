@@ -19,7 +19,7 @@ create a new file in `config/initializers` (ex: `config/initializers/openapi.rb`
 ```rb
 require 'minitest/openapi'
 
-Minitest::OpenAPI.path = 'docs/openapi.yaml'
+Minitest::OpenAPI.path = 'docs/openapi.json'
 ```
 
 ## Run 
@@ -28,15 +28,29 @@ Running:
 DOC=1 bundle exec rails t
 ```
 
-will generate a `yaml` file like:
+will generate a `.json` file. This file will either be called
+`docs/openapi.json` (default), or the custom path you passed into the initializer
+if on exists.
 
-```yaml
-# docs/openapi.yaml
-openapi: 3.0.3
-info: 
-  title: minitest-openapi
-paths: 
-  '/':
-    get:
-      summary: index
+```json
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "minitest-openapi"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Example #1"
+      }
+    }
+  },
+  "webhooks": {
+    "/github": {
+      "post": {
+        "description": "Example #2"
+      }
+    }
+  }
+}
 ```
