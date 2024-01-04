@@ -8,8 +8,7 @@ gem 'minitest-openapi', '~> 0.0.1'
 ```
 
 ## Getting started
-To use `minitest-openapi`, add `require 'minitest/openapi'` to 
-the top of your request spec, and the `document!` method at the top of 
+To use `minitest-openapi`, add the `document!` method at the top of 
 your class declaration.
 
 By default, test cases are evaluated as `paths`. That is, 
@@ -17,8 +16,6 @@ they're not `webhooks` or `components`. If a test case is testing a
 `webhook`, call `webhook!` within the test block.
 
 ```rb
-require 'minitest/openapi'
-
 class WebhookControllerTest < ActionDispatch::IntegrationTest
   document!
   
