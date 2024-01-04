@@ -31,11 +31,11 @@ module Minitest
   end
 end
 
+# TODO: Refactor into its own file
 module MinitestOpenAPIMethods
   def self.prepended(base)
     base.extend(Document)
 
-    # instance methods
     base.class_eval do
       def webhook?
         @webhook
@@ -47,7 +47,6 @@ module MinitestOpenAPIMethods
     end
   end
 
-  # class methods
   module Document
     def document?
       @document
