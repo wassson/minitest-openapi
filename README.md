@@ -47,8 +47,8 @@ if Rails.env.test?
     
     Minitest::OpenAPI.path = ->(test_case) {
       case test_case.path 
-      when %r[api/v1] then 'docs/openapi/v1.json'
-      when %r[api/v2] then 'docs/openapi/v2.json'
+      when %r[controllers/api/v1] then 'docs/openapi/v1.json'
+      when %r[controllers/api/v2] then 'docs/openapi/v2.json'
       else 'docs/openapi.json'
       end
     }
