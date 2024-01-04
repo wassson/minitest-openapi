@@ -40,9 +40,19 @@ To configure how your code will interact with `minitest-openapi`,
 create a new file in `config/initializers` (ex: `config/initializers/openapi.rb`).
 
 ```rb
-require 'minitest/openapi'
-
-Minitest::OpenAPI.path = 'docs/openapi.json'
+if Rails.env.test?
+    require 'minitest/openapi' 
+    
+    Minitest::OpenAPI.path = 'docs/openapi.json'
+    
+    Miniteset::OpenAPI.path = ->(test_case) {
+      case test_case.path 
+      when %r[api/v1] then 'docs/openapi/v1.json'
+      when %r[api/v2] then 'docs/openapi/v2.json'
+      else 'docs/openapi.json'
+      end
+    }
+end
 ```
 
 ## Run 
