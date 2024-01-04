@@ -4,23 +4,25 @@ require 'minitest'
 
 module Minitest
   module OpenAPI
-    DESCRIPTORS = %i[path webhook component].freeze
-    FileContext = Struct.new(:path)
+    TestCase = Struct.new(:path)
 
     module RunPatch
       def run(*args)
         result = super
         return result unless ENV['DOC']
 
-        if DESCRIPTORS.include?(self.class.document_type)
+        if self.class.document?
           test_file_path = result.source_location.first
-          test_file_ctx = FileContext.new(test_file_path)
+          test_case = TestCase.new(test_file_path)
 
-          export_file_path = Minitest::OpenAPI.path.yield_self { |p| p.is_a?(Proc) ? p.call(test_file_ctx) : p }
-          endpoint_data = Minitest::OpenAPI::EndpointBuilder.call(self, test_file_ctx) || {}
+          export_file_path = Minitest::OpenAPI.path.yield_self { |p| p.is_a?(Proc) ? p.call(test_case) : p }
+          endpoint_data = Minitest::OpenAPI::EndpointBuilder.call(self, test_case) || {}
 
-          # TODO: Change this to work for paths or webhooks
-          Minitest::OpenAPI.paths[export_file_path] << endpoint_data
+          if self.webhook?
+            Minitest::OpenAPI.webhooks[export_file_path] << endpoint_data
+          else
+            Minitest::OpenAPI.paths[export_file_path] << endpoint_data
+          end
         end
 
         result
@@ -29,30 +31,41 @@ module Minitest
   end
 end
 
-module DocumentClassMethods
+# TODO: Refactor into its own file
+module MinitestOpenAPIMethods
   def self.prepended(base)
     base.extend(Document)
+
+    base.class_eval do
+      def webhook?
+        @webhook
+      end
+
+      def webhook!
+        @webhook = true
+      end
+    end
   end
 
   module Document
-    def document_type
-      @document_type
+    def document?
+      @document
     end
 
-    def document!(type = :path)
-      @document_type = type
+    def document!
+      @document = true
     end
   end
 end
 
-Minitest::Test.prepend DocumentClassMethods
+Minitest::Test.prepend MinitestOpenAPIMethods
 
 if ENV['DOC']
   Minitest::Test.prepend Minitest::OpenAPI::RunPatch
 
   Minitest.after_run do
-    puts '============================='
-    puts 'Building Docs 🎉'
-    puts '============================='
+    pp Minitest::OpenAPI.paths
+    puts "\n"
+    pp Minitest::OpenAPI.webhooks
   end
 end
