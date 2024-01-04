@@ -4,7 +4,6 @@ require 'minitest'
 
 module Minitest
   module OpenAPI
-    DESCRIPTORS = %i[path webhook component].freeze
     TestCase = Struct.new(:path)
 
     module RunPatch
@@ -12,15 +11,18 @@ module Minitest
         result = super
         return result unless ENV['DOC']
 
-        if DESCRIPTORS.include?(self.class.document_type)
+        if self.class.document?
           test_file_path = result.source_location.first
           test_case = TestCase.new(test_file_path)
 
           export_file_path = Minitest::OpenAPI.path.yield_self { |p| p.is_a?(Proc) ? p.call(test_case) : p }
           endpoint_data = Minitest::OpenAPI::EndpointBuilder.call(self, test_case) || {}
 
-          # TODO: Change this to work for paths or webhooks
-          Minitest::OpenAPI.paths[export_file_path] << endpoint_data
+          if self.webhook?
+            Minitest::OpenAPI.webhooks[export_file_path] << endpoint_data
+          else
+            Minitest::OpenAPI.paths[export_file_path] << endpoint_data
+          end
         end
 
         result
@@ -29,28 +31,42 @@ module Minitest
   end
 end
 
-module DocumentClassMethods
+module MinitestOpenAPIMethods
   def self.prepended(base)
     base.extend(Document)
+
+    # instance methods
+    base.class_eval do
+      def webhook?
+        @webhook
+      end
+
+      def webhook!
+        @webhook = true
+      end
+    end
   end
 
+  # class methods
   module Document
-    def document_type
-      @document_type
+    def document?
+      @document
     end
 
-    def document!(type = :path)
-      @document_type = type
+    def document!
+      @document = true
     end
   end
 end
 
-Minitest::Test.prepend DocumentClassMethods
+Minitest::Test.prepend MinitestOpenAPIMethods
 
 if ENV['DOC']
   Minitest::Test.prepend Minitest::OpenAPI::RunPatch
 
   Minitest.after_run do
     pp Minitest::OpenAPI.paths
+    puts "\n"
+    pp Minitest::OpenAPI.webhooks
   end
 end
