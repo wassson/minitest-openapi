@@ -64,8 +64,14 @@ if ENV['DOC']
   Minitest::Test.prepend Minitest::OpenAPI::RunPatch
 
   Minitest.after_run do
+    puts "======================="
+    puts "Paths: "
+    puts "\n"
     pp Minitest::OpenAPI.paths
+    puts "======================="
+    puts "Webhooks: "
     puts "\n"
     pp Minitest::OpenAPI.webhooks
+    puts "======================="
   end
 end
