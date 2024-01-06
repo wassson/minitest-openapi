@@ -2,6 +2,10 @@
 
 ## Todo
 1. Testing (Rails Petstore API; Merge Petstore YAML) [SPEC](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.0/petstore.yaml)
+
+Full petstore example can be found here: https://petstore31.swagger.io
+OpenAPI File: https://petstore31.swagger.io/api/v31/openapi.json
+
 2. Output `Minitest::OpenAPI.paths` & `Minitest::OpenAPI.webhooks` to file paths
 3. Sorting the paths & webhooks (alphanumeric?)
 4. Minimum Ruby version support? (3.1.4 ?)
