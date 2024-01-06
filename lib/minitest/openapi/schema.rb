@@ -9,9 +9,9 @@ module Minitest
         file_path = Minitest::OpenAPI.file_path
         raise InvalidFileFormat unless json?(file_path)
 
-        Dir.mkdir('docs') unless File.exist?('docs')
-        File.open(file_path, 'w') do |file|
-          file.write(JSON.pretty_generate(json_schema, indent: '  '))
+        Dir.mkdir("docs") unless File.exist?("docs")
+        File.open(file_path, "w") do |file|
+          file.write(JSON.pretty_generate(json_schema, indent: "  "))
         end
       end
 
@@ -21,8 +21,8 @@ module Minitest
         JSON.parse({
           openapi: Minitest::OpenAPI.version,
           info: {
-            title: 'minitest-openapi', # TODO: this should be the name of the app installed on
-            version: '0.0.1' # TODO
+            title: "minitest-openapi", # TODO: this should be the name of the app installed on
+            version: "0.0.1" # TODO
           },
           paths: {},
           webhooks: {}
@@ -36,7 +36,7 @@ module Minitest
     private
 
     def json?(file)
-      File.extname(file) == '.json'
+      File.extname(file) == ".json"
     end
   end
 end

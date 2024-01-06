@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'minitest'
+require "minitest"
 
 module Minitest
   module OpenAPI
@@ -9,7 +9,7 @@ module Minitest
     module RunPatch
       def run(*args)
         result = super
-        return result unless ENV['DOC']
+        return result unless ENV["DOC"]
 
         if self.class.document?
           test_file_path = result.source_location.first
@@ -60,7 +60,7 @@ end
 
 Minitest::Test.prepend MinitestOpenAPIMethods
 
-if ENV['DOC']
+if ENV["DOC"]
   Minitest::Test.prepend Minitest::OpenAPI::RunPatch
 
   Minitest.after_run do

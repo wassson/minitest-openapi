@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'action_dispatch'
+require "action_dispatch"
 
 module Minitest
   module OpenAPI
@@ -11,7 +11,7 @@ module Minitest
           return if @request.nil?
 
           endpoint = {}
-          filtered_path = @request.filtered_path || 'unknown'
+          filtered_path = @request.filtered_path || "unknown"
 
           # TODO: find a better name
           request_activity = activity
