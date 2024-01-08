@@ -5,8 +5,12 @@ module Minitest
     class InvalidFileFormat < StandardError; end
 
     module Schema
+      ALLOWED_EXTENSIONS = [".json", ".yaml", ".yml"].freeze 
+      
       def self.build
         file_paths = self.parse_files
+
+        Dir.mkdir("docs") unless File.exist?("docs")
         file_paths.each do |file|
           raise InvalidFileFormat unless valid_file_ext?(file)
           
@@ -43,7 +47,7 @@ module Minitest
       end
       
       def self.valid_file_ext?(file)
-        File.extname(file) == (".json" || ".yml" || ".yaml")
+        ALLOWED_EXTENSIONS.include?(File.extname(file))
       end
     end
   end
