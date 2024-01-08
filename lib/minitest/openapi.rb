@@ -7,7 +7,7 @@ require "minitest/openapi/schema"
 
 module Minitest
   module OpenAPI
-    @path = "docs/openapi.yaml"
+    @path = "docs/openapi.json"
     @paths = Hash.new { |h, k| h[k] = [] }
     @version = "3.0.3"
     @webhooks = Hash.new { |h, k| h[k] = [] }

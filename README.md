@@ -14,7 +14,9 @@ your class declaration.
 
 By default, test cases are evaluated as `paths`. That is, 
 they're not `webhooks` or `components`. If a test case is testing a 
-`webhook`, call `webhook!` within the test block.
+`webhook`, call `webhook!` within the test block. Note: `components` 
+are not currently supported, but `components` are expected to launch
+with `v0.1`.
 
 ```rb
 require 'minitest/openapi' # not needed if initializer has been created

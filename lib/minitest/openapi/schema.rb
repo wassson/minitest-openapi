@@ -5,38 +5,50 @@ module Minitest
     class InvalidFileFormat < StandardError; end
 
     module Schema
+      ALLOWED_EXTENSIONS = [ ".json", ".yaml", ".yml" ].freeze
+
       def self.build
-        file_path = Minitest::OpenAPI.file_path
-        raise InvalidFileFormat unless json?(file_path)
+        file_paths = self.parse_files
 
         Dir.mkdir("docs") unless File.exist?("docs")
-        File.open(file_path, "w") do |file|
-          file.write(JSON.pretty_generate(json_schema, indent: "  "))
+        file_paths.each do |file|
+          raise InvalidFileFormat unless valid_file_ext?(file)
+
+          File.open(file, "w") do |f|
+            f.write(JSON.pretty_generate(json_schema(file), indent: "  "))
+            puts "File generated!"
+          end
         end
       end
 
       # JSON.pretty_generate expects a minified JSON string even though
       # the docs state to pass in a Ruby obj.
-      def self.json_schema
+      def self.json_schema(file)
         JSON.parse({
           openapi: Minitest::OpenAPI.version,
           info: {
             title: "minitest-openapi", # TODO: this should be the name of the app installed on
-            version: "0.0.1" # TODO
+            version: Minitest::OpenAPI.version
           },
-          paths: {},
-          webhooks: {}
+          paths: Minitest::OpenAPI.paths[file],
+          webhooks: Minitest::OpenAPI.webhooks[file]
         }.to_json)
       end
 
-      # TODO: Handle path from test
-      # rails routes | grep #{root, etc.} | awk '{print $3}'
-    end
+      private
 
-    private
+      def self.parse_files
+        file_paths = []
+        file_paths.concat(
+          Minitest::OpenAPI.paths.keys,
+          Minitest::OpenAPI.webhooks.keys
+        )
+        file_paths.uniq
+      end
 
-    def json?(file)
-      File.extname(file) == ".json"
+      def self.valid_file_ext?(file)
+        ALLOWED_EXTENSIONS.include?(File.extname(file))
+      end
     end
   end
 end
