@@ -4,7 +4,7 @@ is inspired by [rspec-openapi](https://github.com/exoego/rspec-openapi).
 
 ## Installation
 ```
-gem 'minitest-openapi', '~> 0.0.1'
+gem 'minitest-openapi', '~> 0.0.1' # 0.0.1 is not useable, but we will be updating to latest soon
 ```
 
 ## Getting started
@@ -19,8 +19,6 @@ are not currently supported, but `components` are expected to launch
 with `v0.1`.
 
 ```rb
-require 'minitest/openapi' # not needed if initializer has been created
-
 class WebhookControllerTest < ActionDispatch::IntegrationTest
   document!
   
@@ -42,19 +40,17 @@ To configure how your code will interact with `minitest-openapi`,
 create a new file in `config/initializers` (ex: `config/initializers/openapi.rb`).
 
 ```rb
-if Rails.env.test?
-    require 'minitest/openapi' 
-    
-    Minitest::OpenAPI.path = 'docs/openapi.json'
-    
-    Minitest::OpenAPI.path = ->(test_case) {
-      case test_case.path 
-      when %r[controllers/api/v1] then 'docs/openapi/v1.json'
-      when %r[controllers/api/v2] then 'docs/openapi/v2.json'
-      else 'docs/openapi.json'
-      end
-    }
-end
+require 'minitest/openapi' 
+
+Minitest::OpenAPI.path = 'docs/openapi.json'
+
+Minitest::OpenAPI.path = ->(test_case) {
+  case test_case.path 
+  when %r[controllers/api/v1] then 'docs/openapi/v1.json'
+  when %r[controllers/api/v2] then 'docs/openapi/v2.json'
+  else 'docs/openapi.json'
+  end
+}
 ```
 
 ## Run 
