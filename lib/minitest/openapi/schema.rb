@@ -5,7 +5,7 @@ module Minitest
     class InvalidFileFormat < StandardError; end
 
     module Schema
-      ALLOWED_EXTENSIONS = [ ".json", ".yaml", ".yml" ].freeze
+      ALLOWED_EXTENSIONS = %w[.json .yaml .yml].freeze
 
       def self.build
         file_paths = self.parse_files
@@ -21,21 +21,19 @@ module Minitest
         end
       end
 
-      # JSON.pretty_generate expects a minified JSON string even though
-      # the docs state to pass in a Ruby obj.
+      # IDK
       def self.json_schema(file)
         JSON.parse({
-          openapi: Minitest::OpenAPI.version,
+          openapi: "3.1.0",
           info: {
-            title: "minitest-openapi", # TODO: this should be the name of the app installed on
+            title: Minitest::OpenAPI.title,
             version: Minitest::OpenAPI.version
           },
+          servers: Minitest::OpenAPI.servers,
           paths: Minitest::OpenAPI.paths[file],
           webhooks: Minitest::OpenAPI.webhooks[file]
         }.to_json)
       end
-
-      private
 
       def self.parse_files
         file_paths = []
