@@ -32,7 +32,7 @@ module Minitest
             description: "",
             status: @response.status,
             http_operation: @request.method,
-            parameters: {}
+            parameters: []
           }
         end
       end

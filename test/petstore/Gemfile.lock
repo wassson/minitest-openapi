@@ -1,3 +1,8 @@
+PATH
+  remote: ../..
+  specs:
+    minitest-openapi (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -209,6 +214,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  minitest-openapi!
   puma (>= 5.0)
   rails (~> 7.1.2)
   sqlite3 (~> 1.4)

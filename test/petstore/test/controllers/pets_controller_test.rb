@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PetsControllerTest < ActionDispatch::IntegrationTest
+  document!
+
   setup do
     @pet = pets(:one)
   end

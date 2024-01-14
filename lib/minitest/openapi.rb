@@ -9,12 +9,16 @@ module Minitest
   module OpenAPI
     @path = "docs/openapi.json"
     @paths = Hash.new { |h, k| h[k] = [] }
-    @version = "3.0.3"
+    @servers = []
+    @title = ""
+    @version = ""
     @webhooks = Hash.new { |h, k| h[k] = [] }
 
     class << self
       attr_accessor :path,
                     :paths,
+                    :servers,
+                    :title,
                     :version,
                     :webhooks
     end
