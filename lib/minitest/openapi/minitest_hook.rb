@@ -8,21 +8,17 @@ module Minitest
 
     module RunPatch
       def run(*args)
+        return super unless ENV["DOC"]
         result = super
-        return result unless ENV["DOC"]
 
         if self.class.document?
           test_file_path = result.source_location.first
           test_case = TestCase.new(test_file_path)
+          metadata = Minitest::OpenAPI::EndpointMetadata.call(self, test_case) || {}
 
-          export_file_path = Minitest::OpenAPI.path.yield_self { |p| p.is_a?(Proc) ? p.call(test_case) : p }
-          endpoint_data = Minitest::OpenAPI::EndpointBuilder.call(self, test_case) || {}
-
-          if self.webhook?
-            Minitest::OpenAPI.webhooks[export_file_path] << endpoint_data
-          else
-            Minitest::OpenAPI.paths[export_file_path] << endpoint_data
-          end
+          self.webhook? ?
+            Minitest::OpenAPI::Webhook.build(metadata, test_case) :
+            Minitest::OpenAPI::Path.build(metadata, test_case)
         end
 
         result
@@ -31,7 +27,6 @@ module Minitest
   end
 end
 
-# TODO: Refactor into its own file
 module MinitestOpenAPIMethods
   def self.prepended(base)
     base.extend(Document)
