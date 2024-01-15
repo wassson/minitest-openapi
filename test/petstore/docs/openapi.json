@@ -1,0 +1,124 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "petstore",
+    "version": "1.0.2"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/pets": {
+      "post": {
+        "parameters": [
+
+        ],
+        "responses": {
+          "422": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "default": {
+            "description": ""
+          },
+          "201": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "application/json": {
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/pets/{petId}": {
+      "delete": {
+        "parameters": [
+
+        ],
+        "responses": {
+          "204": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+  }
+}

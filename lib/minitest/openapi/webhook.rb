@@ -9,7 +9,7 @@ module Minitest
 
         if file_path_data[metadata[:endpoint]]
           if file_path_data[metadata[:endpoint]][metadata[:method]]
-            file_path_data[metadata[:endpoint]][metadata[:method]][:responses].merge!({ metadata[:status] => {} })
+            file_path_data[metadata[:endpoint]][metadata[:method]][:responses].merge!({ metadata[:status] => self.response(metadata) })
           else
             file_path_data[metadata[:endpoint]].merge! self.format_endpoint(metadata)
           end
@@ -23,10 +23,18 @@ module Minitest
           metadata[:method] => {
             parameters: [],
             responses: {
-              metadata[:status] => {},
-              default: {}
+              metadata[:status] => self.response(metadata),
+              default: { description: "" }
             }
           }
+        }
+      end
+
+      def self.response(metadata)
+        {
+          description: "",
+          headers: {},
+          content: { metadata[:content_type] => {} }
         }
       end
     end
