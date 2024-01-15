@@ -21,9 +21,10 @@ module Minitest
           {
             endpoint: format_endpoint,
             method: @request.method.downcase,
+            parameters: @request.env["action_dispatch.request.parameters"],
             summary: "",
-            parameters: [],
-            status: @response.status
+            status: @response.status,
+            content_type: @request.env["CONTENT_TYPE"]
           }
         end
 

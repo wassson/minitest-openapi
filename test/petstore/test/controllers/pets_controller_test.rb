@@ -29,7 +29,6 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "error" # check if the response body contains 'error'
   end
 
-
   test "should show pet" do
     get pet_url(@pet), as: :json
     assert_response :success
