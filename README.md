@@ -4,8 +4,10 @@ is inspired by [rspec-openapi](https://github.com/exoego/rspec-openapi).
 
 ## Installation
 ```
-gem 'minitest-openapi', '~> 0.0.1' # 0.0.1 is not useable, but we will be updating to latest soon
+gem 'minitest-openapi', '~> 0.0.2'
 ```
+
+Note: 0.0.2 excludes some core features required by OpenAPI v3.1
 
 ## Getting started
 To use `minitest-openapi`, add `require 'minitest/openapi'` to 

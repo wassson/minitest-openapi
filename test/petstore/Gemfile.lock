@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    minitest-openapi (0.0.1)
+    minitest-openapi (0.0.2)
 
 GEM
   remote: https://rubygems.org/

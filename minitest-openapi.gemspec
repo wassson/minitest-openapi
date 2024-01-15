@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name =                  'minitest-openapi'
-  s.version =               '0.0.1'
+  s.version =               '0.0.2'
   s.summary =               'API documentation generator based on the OpenAPI spec.'
   s.description =           'API documentation generator based on the OpenAPI spec.'
   s.required_ruby_version = '>= 3.1'
