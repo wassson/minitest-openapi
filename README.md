@@ -22,17 +22,28 @@ with `v0.1`.
 
 ```rb
 class WebhookControllerTest < ActionDispatch::IntegrationTest
-  document!
-  
-  test "GET /" do 
-    get root_path
-    assert_response :success
-  end
+  def setup
+    # do setup
+  end 
 
-  test "POST /webhook" do
-    webhook!
-    post webhook_path
-    assert_response :success
+  describe_api do
+    description "Description of the api"
+    summary "Longer summary of the api"
+
+    test "GET /" do
+      description "Description of the endpoint"
+
+      get root_path
+      assert_response :success
+    end
+
+    test "POST /webhook" do
+      webhook!
+      description "Description of another endpoint"
+
+      post webhook_path
+      assert_response :success
+    end
   end
 end
 ```
