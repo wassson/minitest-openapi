@@ -11,11 +11,10 @@ Note: 0.0.2 excludes some core features required by OpenAPI v3.1
 
 ## Getting started
 To use `minitest-openapi`, add `require 'minitest/openapi'` to 
-the top of your request spec (if you're not using an initializer), and the `document!` method at the top of 
-your class declaration.
+the top of your request spec (if you're not using an initializer).
 
 By default, test cases are evaluated as `paths`. That is, 
-they're not `webhooks` or `components`. If a test case is testing a 
+they're not `webhooks`. If a test case is testing a 
 `webhook`, call `webhook!` within the test block. Note: `components` 
 are not currently supported, but `components` are expected to launch
 with `v0.1`.
@@ -27,7 +26,6 @@ class WebhookControllerTest < ActionDispatch::IntegrationTest
   end 
 
   describe_api do
-    description "Description of the api"
     summary "Longer summary of the api"
 
     test "GET /" do
@@ -80,25 +78,70 @@ if on exists.
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "minitest-openapi"
+    "version": "1.2.3",
+    "title": "minitest-openapi",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
   },
   "paths": {
-    "/": {
+    "/pets": {
       "get": {
-        "description": "Example #1"
+        "summary": "Example #1",
+        "operationId": "listPets",
+        "tags": [
+          "pets"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many items to return at one time (max 100)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paged array of pets",
+            "headers": {
+              "x-next": {
+                "description": "A link to the next page of responses",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pets"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
-  "webhooks": {
-    "/github": {
-      "post": {
-        "description": "Example #2"
-      }
-    }
-  },
+  "webhooks": { ... },
   "components": {
     "schema": {
-      "User": {
+      "Pet": {
         "required": ["id"]
       }
     }
