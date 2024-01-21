@@ -55,6 +55,7 @@ require 'minitest/openapi'
 
 Minitest::OpenAPI.path = 'docs/openapi.json'
 
+# For versioned APIs
 Minitest::OpenAPI.path = ->(test_case) {
   case test_case.path 
   when %r[controllers/api/v1] then 'docs/openapi/v1.json'
@@ -62,6 +63,10 @@ Minitest::OpenAPI.path = ->(test_case) {
   else 'docs/openapi.json'
   end
 }
+
+Minitest::OpenAPI.title = 'app-name'
+
+Minitest::OpenAPI.version = '1.2.3'
 ```
 
 ## Run 

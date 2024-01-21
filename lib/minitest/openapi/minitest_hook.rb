@@ -10,9 +10,6 @@ module Minitest
     module RunPatch
       def run(*args)
         return super unless ENV["DOC"]
-        result = super
-
-        binding.b
 
         test_file_path = result.source_location.first
         test_case = TestCase.new(test_file_path)
@@ -22,7 +19,7 @@ module Minitest
           Minitest::OpenAPI::Webhook.build(metadata, test_case) :
           Minitest::OpenAPI::Path.build(metadata, test_case)
 
-        result
+        super
       end
     end
   end
