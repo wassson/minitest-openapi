@@ -10,7 +10,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   describe_api do
     summary "Get a list of pets"
     operation_id "listPets"
-    tags %w[ pets ]
+    tags "pets"
 
     test "should get index" do
       description "Returns a list of pets"

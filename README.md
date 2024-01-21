@@ -20,26 +20,23 @@ are not currently supported, but `components` are expected to launch
 with `v0.1`.
 
 ```rb
-class WebhookControllerTest < ActionDispatch::IntegrationTest
-  def setup
-    # do setup
-  end 
+class PetsControllerTest < ActionDispatch::IntegrationTest
+  include OpenAPI
+
+  setup do
+    @pet = pets(:one)
+  end
 
   describe_api do
-    summary "Longer summary of the api"
+    summary "Get a list of pets"
+    operation_id "listPets"
+    tags "pets"
 
-    test "GET /" do
-      description "Description of the endpoint"
+    test "should get index" do
+      description "Returns a list of pets"
+      response_schema { "$ref" => "#/components/schemas/Pets" }
 
-      get root_path
-      assert_response :success
-    end
-
-    test "POST /webhook" do
-      webhook!
-      description "Description of another endpoint"
-
-      post webhook_path
+      get pets_url, as: :json
       assert_response :success
     end
   end
