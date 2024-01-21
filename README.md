@@ -11,7 +11,8 @@ Note: 0.0.2 excludes some core features required by OpenAPI v3.1
 
 ## Getting started
 To use `minitest-openapi`, add `require 'minitest/openapi'` to 
-the top of your request spec (if you're not using an initializer).
+the top of your request spec (if you're not using an initializer), and `include OpenAPI`
+at the top of your class declaration.
 
 By default, test cases are evaluated as `paths`. That is, 
 they're not `webhooks`. If a test case is testing a 
@@ -32,7 +33,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     operation_id "listPets"
     tags "pets"
 
-    test "should get index" do
+    test "will get /pets" do
       description "Returns a list of pets"
       response_schema { "$ref" => "#/components/schemas/Pets" }
 
@@ -50,6 +51,7 @@ create a new file in `config/initializers` (ex: `config/initializers/openapi.rb`
 ```rb
 require 'minitest/openapi' 
 
+# For non-versioned APIs
 Minitest::OpenAPI.path = 'docs/openapi.json'
 
 # For versioned APIs
@@ -61,8 +63,10 @@ Minitest::OpenAPI.path = ->(test_case) {
   end
 }
 
+# Your project name
 Minitest::OpenAPI.title = 'app-name'
 
+# Your project version
 Minitest::OpenAPI.version = '1.2.3'
 ```
 
