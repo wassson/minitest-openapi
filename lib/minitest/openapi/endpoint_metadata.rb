@@ -8,7 +8,8 @@ module Minitest
     module EndpointMetadata
       class << self
         def call(context, _test)
-          @request, @response = Minitest::OpenAPI::ParseRequest.call(context)
+          @request = context.request
+          @response = context.response
           return if @request.nil?
 
           @endpoint = @request.filtered_path || "unknown"

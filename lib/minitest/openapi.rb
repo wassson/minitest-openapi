@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "minitest/openapi/minitest_hook"
-require "minitest/openapi/parse_request"
 require "minitest/openapi/endpoint_metadata"
 require "minitest/openapi/path"
 require "minitest/openapi/schema"
