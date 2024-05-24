@@ -4,7 +4,7 @@ module Minitest
   module OpenAPI
     module Methods
       def self.prepended(base)
-        base.extend(OpenAPI)
+        base.extend(MiniAPI)
 
         # Response methods
         base.class_eval do
@@ -28,7 +28,7 @@ module Minitest
         end
       end
 
-      module OpenAPI
+      module MiniAPI
         def self.included(base)
           base.extend(ClassMethods)
         end

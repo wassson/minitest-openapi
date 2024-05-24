@@ -22,7 +22,7 @@ with `v0.1`.
 
 ```rb
 class PetsControllerTest < ActionDispatch::IntegrationTest
-  include OpenAPI
+  include MiniAPI
 
   setup do
     @pet = pets(:one)

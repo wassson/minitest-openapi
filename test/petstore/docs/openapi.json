@@ -10,36 +10,8 @@
     }
   ],
   "paths": {
-    "/pets": {
-      "post": {
-        "parameters": [
-
-        ],
-        "responses": {
-          "422": {
-            "description": "",
-            "headers": {
-            },
-            "content": {
-              "application/json": {
-              }
-            }
-          },
-          "default": {
-            "description": ""
-          },
-          "201": {
-            "description": "",
-            "headers": {
-            },
-            "content": {
-              "application/json": {
-              }
-            }
-          }
-        }
-      },
-      "get": {
+    "/pets/{petId}": {
+      "patch": {
         "parameters": [
 
         ],
@@ -57,9 +29,7 @@
             "description": ""
           }
         }
-      }
-    },
-    "/pets/{petId}": {
+      },
       "delete": {
         "parameters": [
 
@@ -97,18 +67,50 @@
             "description": ""
           }
         }
-      },
-      "patch": {
+      }
+    },
+    "/pets": {
+      "post": {
         "parameters": [
 
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "",
             "headers": {
             },
             "content": {
               "application/json": {
+              }
+            }
+          },
+          "default": {
+            "description": ""
+          },
+          "422": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "application/json": {
+              }
+            }
+          }
+        }
+      }
+    },
+    "": {
+      "": {
+        "parameters": [
+
+        ],
+        "responses": {
+          "": {
+            "description": "",
+            "headers": {
+            },
+            "content": {
+              "": {
               }
             }
           },
