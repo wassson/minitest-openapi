@@ -11,8 +11,6 @@ module Minitest
       def run(*args)
         return super unless ENV["DOC"]
 
-        binding.break
-
         test_file_path = super.source_location.first
         test_case = TestCase.new(test_file_path)
         metadata = Minitest::OpenAPI::EndpointMetadata.call(self, test_case) || {}

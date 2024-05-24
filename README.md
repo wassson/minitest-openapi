@@ -1,5 +1,5 @@
 # minitest-openapi
-Generate OpenAPI schema from MiniTest request specs. `minitest-openapi` 
+Generate OpenAPI schema from MiniTest request specs. `minitest-openapi`
 is inspired by [rspec-openapi](https://github.com/exoego/rspec-openapi).
 
 ## Installation
@@ -10,13 +10,13 @@ gem 'minitest-openapi', '~> 0.0.2'
 Note: 0.0.2 excludes some core features required by OpenAPI v3.1
 
 ## Getting started
-To use `minitest-openapi`, add `require 'minitest/openapi'` to 
+To use `minitest-openapi`, add `require 'minitest/openapi'` to
 the top of your request spec (if you're not using an initializer), and `include OpenAPI`
 at the top of your class declaration.
 
-By default, test cases are evaluated as `paths`. That is, 
-they're not `webhooks`. If a test case is testing a 
-`webhook`, call `webhook!` within the test block. Note: `components` 
+By default, test cases are evaluated as `paths`. That is,
+they're not `webhooks`. If a test case is testing a
+`webhook`, call `webhook!` within the test block. Note: `components`
 are not currently supported, but `components` are expected to launch
 with `v0.1`.
 
@@ -28,35 +28,29 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     @pet = pets(:one)
   end
 
-  describe_api do
-    summary "Get a list of pets"
-    operation_id "listPets"
-    tags "pets"
+  test "will get /pets" do
+    description "Returns a list of pets"
+    response_schema { "$ref" => "#/components/schemas/Pets" }
 
-    test "will get /pets" do
-      description "Returns a list of pets"
-      response_schema { "$ref" => "#/components/schemas/Pets" }
-
-      get pets_url, as: :json
-      assert_response :success
-    end
+    get pets_url, as: :json
+    assert_response :success
   end
 end
 ```
 
 ## Configuration
-To configure how your code will interact with `minitest-openapi`, 
+To configure how your code will interact with `minitest-openapi`,
 create a new file in `config/initializers` (ex: `config/initializers/openapi.rb`).
 
 ```rb
-require 'minitest/openapi' 
+require 'minitest/openapi'
 
 # For non-versioned APIs
 Minitest::OpenAPI.path = 'docs/openapi.json'
 
 # For versioned APIs
 Minitest::OpenAPI.path = ->(test_case) {
-  case test_case.path 
+  case test_case.path
   when %r[controllers/api/v1] then 'docs/openapi/v1.json'
   when %r[controllers/api/v2] then 'docs/openapi/v2.json'
   else 'docs/openapi.json'
@@ -70,8 +64,8 @@ Minitest::OpenAPI.title = 'app-name'
 Minitest::OpenAPI.version = '1.2.3'
 ```
 
-## Run 
-Running: 
+## Run
+Running:
 ```bash
 DOC=1 bundle exec rails t
 ```
