@@ -1,5 +1,47 @@
 # frozen_string_literal: true
 
+module MiniAPI
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+
+  # API methods
+  module ClassMethods
+    attr_reader :api_operation_id, :api_summary, :api_tags
+
+    def describe_api(&block)
+      class_eval &block
+    end
+
+    def operation_id(id)
+      @api_operation_id = id
+    end
+
+    def summary(text)
+      @pending_summary = text
+    end
+
+    # This hook runs every time a method is added to the class
+    def method_added(method_name)
+      return unless @pending_summary
+
+      @summaries ||= {}
+      @summaries[method_name] = @pending_summary
+
+      puts @pending_summary
+      @pending_summary = nil
+    end
+
+    def get_summary(method_name)
+      @summaries&.[](method_name)
+    end
+
+    def tags(*tags)
+      @api_tags = tags
+    end
+  end
+end
+
 module Minitest
   module OpenAPI
     module Methods
@@ -28,32 +70,6 @@ module Minitest
         end
       end
 
-      module MiniAPI
-        def self.included(base)
-          base.extend(ClassMethods)
-        end
-
-        # API methods
-        module ClassMethods
-          attr_reader :api_operation_id, :api_summary, :api_tags
-
-          def describe_api(&block)
-            class_eval &block
-          end
-
-          def operation_id(id)
-            @api_operation_id = id
-          end
-
-          def summary(text)
-            @api_summary = text
-          end
-
-          def tags(*tags)
-            @api_tags = tags
-          end
-        end
-      end
     end
   end
 end

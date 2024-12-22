@@ -29,6 +29,7 @@ module Minitest
           }
         end
 
+        # TODO: Rails.application.routes.recognize_path(request.path)
         # Convert "owners/1234/pets/5678" to "owners/{ownerId}/pets/{petId}"
         def format_endpoint
           ep = @endpoint.split("/")[1..-1] || []
