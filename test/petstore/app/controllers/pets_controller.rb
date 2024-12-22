@@ -1,9 +1,12 @@
 # Purpose: Pets Controller that handles requests according to:
 # https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.0/petstore.yaml
 class PetsController < ApplicationController
+  include MiniAPI
+
   before_action :set_pet, only: %i[ show update destroy ]
 
   # GET /pets
+  summary "Test"
   def index
     @pets = Pet.all
     # Just hardcoding the next link for now to fullfill the spec
@@ -12,6 +15,7 @@ class PetsController < ApplicationController
   end
 
   # GET /pets/1
+  summary "Test 2"
   def show
     render json: @pet
   end

@@ -10,45 +10,7 @@
     }
   ],
   "paths": {
-    "/pets/{petId}": {
-      "patch": {
-        "parameters": [
-
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {
-            },
-            "content": {
-              "application/json": {
-              }
-            }
-          },
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "parameters": [
-
-        ],
-        "responses": {
-          "204": {
-            "description": "",
-            "headers": {
-            },
-            "content": {
-              "application/json": {
-              }
-            }
-          },
-          "default": {
-            "description": ""
-          }
-        }
-      },
+    "/pets": {
       "get": {
         "parameters": [
 
@@ -60,57 +22,6 @@
             },
             "content": {
               "application/json": {
-              }
-            }
-          },
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/pets": {
-      "post": {
-        "parameters": [
-
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "headers": {
-            },
-            "content": {
-              "application/json": {
-              }
-            }
-          },
-          "default": {
-            "description": ""
-          },
-          "422": {
-            "description": "",
-            "headers": {
-            },
-            "content": {
-              "application/json": {
-              }
-            }
-          }
-        }
-      }
-    },
-    "": {
-      "": {
-        "parameters": [
-
-        ],
-        "responses": {
-          "": {
-            "description": "",
-            "headers": {
-            },
-            "content": {
-              "": {
               }
             }
           },
