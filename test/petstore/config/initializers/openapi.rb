@@ -1,3 +1,10 @@
-Minitest::OpenAPI.title = "petstore"
-Minitest::OpenAPI.version = "1.0.2"
-Minitest::OpenAPI.servers << { url: "http://localhost:3000" }
+Minitest::OpenAPI.info = {
+  title: "Petstore API",
+  description: "API documentation for the Petstore app.",
+  version: "0.1.9"
+}
+
+Minitest::OpenAPI.servers << {
+  url: "http://localhost:3000",
+  description: "Main (production) server."
+}

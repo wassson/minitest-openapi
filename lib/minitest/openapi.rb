@@ -4,24 +4,21 @@ require "minitest/openapi/minitest_hook"
 require "minitest/openapi/endpoint_metadata"
 require "minitest/openapi/path"
 require "minitest/openapi/schema"
-require "minitest/openapi/webhook"
 
 module Minitest
   module OpenAPI
+    @spec_version = "3.0.0"
+    @info = {}
+    @servers = []
     @path = "docs/openapi.json"
     @paths = Hash.new { |h, k| h[k] = {} }
-    @servers = []
-    @title = ""
-    @version = ""
-    @webhooks = Hash.new { |h, k| h[k] = {} }
 
     class << self
-      attr_accessor :path,
-                    :paths,
+      attr_accessor :info,
                     :servers,
+                    :path,
+                    :paths,
                     :title,
-                    :version,
-                    :webhooks
     end
   end
 end

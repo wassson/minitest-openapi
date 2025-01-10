@@ -59,17 +59,8 @@ module Minitest
           def response_schema(reference)
             @response_schema = reference
           end
-
-          def webhook?
-            @webhook
-          end
-
-          def webhook!
-            @webhook = true
-          end
         end
       end
-
     end
   end
 end

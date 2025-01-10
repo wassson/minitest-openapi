@@ -31,16 +31,12 @@ module Minitest
           },
           servers: Minitest::OpenAPI.servers,
           paths: Minitest::OpenAPI.paths[file],
-          webhooks: Minitest::OpenAPI.webhooks[file]
         }.to_json)
       end
 
       def self.parse_files
         file_paths = []
-        file_paths.concat(
-          Minitest::OpenAPI.paths.keys,
-          Minitest::OpenAPI.webhooks.keys
-        )
+        file_paths.concat(Minitest::OpenAPI.paths.keys)
         file_paths.uniq
       end
 

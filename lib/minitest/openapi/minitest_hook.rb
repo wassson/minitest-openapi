@@ -15,10 +15,6 @@ module Minitest
         test_case = TestCase.new(test_file_path)
         metadata = Minitest::OpenAPI::EndpointMetadata.call(self, test_case) || {}
 
-        self.webhook? ?
-          Minitest::OpenAPI::Webhook.build(metadata, test_case) :
-          Minitest::OpenAPI::Path.build(metadata, test_case)
-
         super
       end
     end
