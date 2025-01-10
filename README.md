@@ -57,12 +57,17 @@ Minitest::OpenAPI.path = ->(test_case) {
   end
 }
 
-# Your project name
-Minitest::OpenAPI.title = 'app-name'
+# Your project metadata
+Minitest::OpenAPI.info = {
+  title: "Petstore API",
+  description: "API documentation for the Petstore app.",
+  version: "0.1.9"
+}
 
-# Your project version
-Minitest::OpenAPI.version = '1.2.3'
-```
+Minitest::OpenAPI.servers << {
+  url: "http://localhost:3000",
+  description: "Main (production) server."
+}
 
 ## Run
 Running:
