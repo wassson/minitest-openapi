@@ -45,18 +45,6 @@ create a new file in `config/initializers` (ex: `config/initializers/openapi.rb`
 ```rb
 require 'minitest/openapi'
 
-# For non-versioned APIs
-Minitest::OpenAPI.path = 'docs/openapi.json'
-
-# For versioned APIs
-Minitest::OpenAPI.path = ->(test_case) {
-  case test_case.path
-  when %r[controllers/api/v1] then 'docs/openapi/v1.json'
-  when %r[controllers/api/v2] then 'docs/openapi/v2.json'
-  else 'docs/openapi.json'
-  end
-}
-
 # Your project metadata
 Minitest::OpenAPI.info = {
   title: "Petstore API",
@@ -68,6 +56,20 @@ Minitest::OpenAPI.servers << {
   url: "http://localhost:3000",
   description: "Main (production) server."
 }
+
+# For non-versioned APIs
+Minitest::OpenAPI.path = 'docs/openapi.json'
+
+# For versioned APIs
+Minitest::OpenAPI.path = ->(test_case) {
+  case test_case.path
+  when %r[controllers/api/v1] then 'docs/openapi/v1.json'
+  when %r[controllers/api/v2] then 'docs/openapi/v2.json'
+  else 'docs/openapi.json'
+  end
+}
+```
+
 
 ## Run
 Running:
