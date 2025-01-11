@@ -1,13 +1,13 @@
 require "test_helper"
 
 class PetsControllerTest < ActionDispatch::IntegrationTest
-  # include MiniAPI
+  include Minitest::OpenAPI
 
   setup do
     @pet = pets(:one)
   end
 
-  test "should get index" do
+  test "will get index" do
     get pets_url, as: :json
     assert_response :success
   end

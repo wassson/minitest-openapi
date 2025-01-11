@@ -23,15 +23,12 @@ module Minitest
 
       # IDK
       def self.json_schema(file)
-        JSON.parse({
-          openapi: "3.1.0",
-          info: {
-            title: Minitest::OpenAPI.title,
-            version: Minitest::OpenAPI.version
-          },
+        {
+          openapi: Minitest::OpenAPI.spec_version,
+          info: Minitest::OpenAPI.info,
           servers: Minitest::OpenAPI.servers,
           paths: Minitest::OpenAPI.paths[file],
-        }.to_json)
+        }
       end
 
       def self.parse_files

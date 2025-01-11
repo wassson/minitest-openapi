@@ -1,12 +1,14 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.0",
   "info": {
-    "title": "petstore",
-    "version": "1.0.2"
+    "title": "Petstore API",
+    "description": "API documentation for the Petstore app.",
+    "version": "0.1.9"
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3000",
+      "description": "Main (production) server."
     }
   ],
   "paths": {
@@ -31,7 +33,5 @@
         }
       }
     }
-  },
-  "webhooks": {
   }
 }

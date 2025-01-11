@@ -14,11 +14,12 @@ module Minitest
     @paths = Hash.new { |h, k| h[k] = {} }
 
     class << self
-      attr_accessor :info,
+      attr_accessor :spec_version,
+                    :info,
                     :servers,
                     :path,
                     :paths,
-                    :title,
+                    :title
     end
   end
 end
